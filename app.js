@@ -34,12 +34,32 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
     diceDOM.style.display = 'block';
     diceDOM.src = 'dice-' + dice + '.png';
 
+    // update round score IF dice is NOT a 1
+    if(dice !== 1) {
+        roundScore += dice;
+        document.querySelector('#current-' + activePlayer).textContent = roundScore;
+    } else {
+        // similar to IF statements - if 0, then switch to 1, else keep at 0
+        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+        // reset
+        roundScore = 0;
+
+        document.getElementById('current-0').textContent = '0';
+        document.getElementById('current-1').textContent = '0';
+
+        // toggle active class
+        document.querySelector('.player-0-panel').classList.toggle('active');
+        document.querySelector('.player-1-panel').classList.toggle('active');
+
+        // do not show dice after rolling 1
+        document.querySelector('.dice').style.display = 'none';
+    }
 
 });
 
 
 
 
-// document.querySelector('#current-' + activePlayer).textContent = dice;
+
 
 // var x = document.querySelector('#score-0').textContent;
