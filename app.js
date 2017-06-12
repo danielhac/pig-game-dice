@@ -9,47 +9,56 @@ GAME RULES:
 
 */
 
-var scores, roundScore, activePlayer;
+var scores, roundScore, activePlayer, gamePlaying;
 
 init();
 
 // when clicking on the roll dice button
 document.querySelector('.btn-roll').addEventListener('click', function () {
-    // randomized number for dice (1-6)
-    var dice = Math.floor(Math.random() * 6) + 1;
+    // check if winner
+    if(gamePlaying) {
+        // randomized number for dice (1-6)
+        var dice = Math.floor(Math.random() * 6) + 1;
 
-    // display dice
-    var diceDOM =document.querySelector('.dice');
-    diceDOM.style.display = 'block';
-    diceDOM.src = 'dice-' + dice + '.png';
+        // display dice
+        var diceDOM =document.querySelector('.dice');
+        diceDOM.style.display = 'block';
+        diceDOM.src = 'dice-' + dice + '.png';
 
-    // update round score IF dice is NOT a 1
-    if(dice !== 1) {
-        roundScore += dice;
-        document.querySelector('#current-' + activePlayer).textContent = roundScore;
-    } else {
-        nextPlayer();
+        // update round score IF dice is NOT a 1
+        if(dice !== 1) {
+            roundScore += dice;
+            document.querySelector('#current-' + activePlayer).textContent = roundScore;
+        } else {
+            nextPlayer();
+        }
     }
+
 
 });
 
 // when clicking on hold button
 document.querySelector('.btn-hold').addEventListener('click', function () {
-    // add current score to Global score
-    scores[activePlayer] += roundScore;
+    // check if winner
+    if(gamePlaying) {
+        // add current score to Global score
+        scores[activePlayer] += roundScore;
 
-    // update UI
-    document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+        // update UI
+        document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 
-    // check if current player won and change player name, else next player
-    if(scores[activePlayer] >= 10) {
-        document.querySelector('#name-'+activePlayer).textContent = 'Pakchubs forever!';
-        document.querySelector('.dice').style.display = 'none';
-        document.querySelector('.player-'+activePlayer+'-panel').classList.add('winner');
-        document.querySelector('.player-'+activePlayer+'-panel').classList.remove('active');
-    } else {
-        nextPlayer();
+        // check if current player won and change player name, else next player
+        if(scores[activePlayer] >= 50) {
+            document.querySelector('#name-'+activePlayer).textContent = 'Pakchubs forever!';
+            document.querySelector('.dice').style.display = 'none';
+            document.querySelector('.player-'+activePlayer+'-panel').classList.add('winner');
+            document.querySelector('.player-'+activePlayer+'-panel').classList.remove('active');
+            gamePlaying = false;
+        } else {
+            nextPlayer();
+        }
     }
+
 });
 
 document.querySelector('.btn-new').addEventListener('click', init);
@@ -75,6 +84,7 @@ function init() {
     scores = [0,0];
     roundScore = 0;
     activePlayer = 0;
+    gamePlaying = true;
 
     // remove dice on load
     document.querySelector('.dice').style.display = 'none';
