@@ -11,18 +11,7 @@ GAME RULES:
 
 var scores, roundScore, activePlayer;
 
-scores = [0,0];
-roundScore = 0;
-activePlayer = 0;
-
-// remove dice on load
-document.querySelector('.dice').style.display = 'none';
-
-// set all values to 0 on load
-document.getElementById('score-0').textContent = '0';
-document.getElementById('score-1').textContent = '0';
-document.getElementById('current-0').textContent = '0';
-document.getElementById('current-1').textContent = '0';
+init();
 
 // when clicking on the roll dice button
 document.querySelector('.btn-roll').addEventListener('click', function () {
@@ -63,6 +52,7 @@ document.querySelector('.btn-hold').addEventListener('click', function () {
     }
 });
 
+document.querySelector('.btn-new').addEventListener('click', init);
 function nextPlayer() {
     // similar to IF statements - if 0, then switch to 1, else keep at 0
     activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
@@ -78,6 +68,37 @@ function nextPlayer() {
 
     // do not show dice after rolling 1
     document.querySelector('.dice').style.display = 'none';
+}
+
+function init() {
+    // reset all variables
+    scores = [0,0];
+    roundScore = 0;
+    activePlayer = 0;
+
+    // remove dice on load
+    document.querySelector('.dice').style.display = 'none';
+
+    // set all values to 0 on load
+    document.getElementById('score-0').textContent = '0';
+    document.getElementById('score-1').textContent = '0';
+    document.getElementById('current-0').textContent = '0';
+    document.getElementById('current-1').textContent = '0';
+
+    // reset names
+    document.getElementById('name-0').textContent = 'Pak paks';
+    document.getElementById('name-1').textContent = 'Bae Bae';
+
+    // remove winner class
+    document.querySelector('.player-0-panel').classList.remove('winner');
+    document.querySelector('.player-1-panel').classList.remove('winner');
+
+    // remove active class
+    document.querySelector('.player-0-panel').classList.remove('active');
+    document.querySelector('.player-1-panel').classList.remove('active');
+
+    // add active class to restart or begin a game
+    document.querySelector('.player-0-panel').classList.remove('active');
 }
 
 
