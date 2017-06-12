@@ -98,7 +98,7 @@ function init() {
     document.querySelector('.player-1-panel').classList.remove('active');
 
     // add active class to restart or begin a game
-    document.querySelector('.player-0-panel').classList.remove('active');
+    document.querySelector('.player-0-panel').classList.add('active');
 }
 
 
