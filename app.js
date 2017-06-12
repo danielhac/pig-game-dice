@@ -39,26 +39,46 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
         roundScore += dice;
         document.querySelector('#current-' + activePlayer).textContent = roundScore;
     } else {
-        // similar to IF statements - if 0, then switch to 1, else keep at 0
-        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
-        // reset
-        roundScore = 0;
-
-        document.getElementById('current-0').textContent = '0';
-        document.getElementById('current-1').textContent = '0';
-
-        // toggle active class
-        document.querySelector('.player-0-panel').classList.toggle('active');
-        document.querySelector('.player-1-panel').classList.toggle('active');
-
-        // do not show dice after rolling 1
-        document.querySelector('.dice').style.display = 'none';
+        nextPlayer();
     }
 
 });
 
+// when clicking on hold button
+document.querySelector('.btn-hold').addEventListener('click', function () {
+    // add current score to Global score
+    scores[activePlayer] += roundScore;
 
+    // update UI
+    document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 
+    // check if current player won and change player name, else next player
+    if(scores[activePlayer] >= 10) {
+        document.querySelector('#name-'+activePlayer).textContent = 'Pakchubs forever!';
+        document.querySelector('.dice').style.display = 'none';
+        document.querySelector('.player-'+activePlayer+'-panel').classList.add('winner');
+        document.querySelector('.player-'+activePlayer+'-panel').classList.remove('active');
+    } else {
+        nextPlayer();
+    }
+});
+
+function nextPlayer() {
+    // similar to IF statements - if 0, then switch to 1, else keep at 0
+    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+    // reset
+    roundScore = 0;
+
+    document.getElementById('current-0').textContent = '0';
+    document.getElementById('current-1').textContent = '0';
+
+    // toggle active class
+    document.querySelector('.player-0-panel').classList.toggle('active');
+    document.querySelector('.player-1-panel').classList.toggle('active');
+
+    // do not show dice after rolling 1
+    document.querySelector('.dice').style.display = 'none';
+}
 
 
 
