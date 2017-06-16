@@ -9,27 +9,40 @@ GAME RULES:
 
 */
 
-var scores, roundScore, activePlayer, gamePlaying;
+var scores, roundScore, activePlayer, gamePlaying, previousDice;
 
 init();
 
 // when clicking on the roll dice button
 document.querySelector('.btn-roll').addEventListener('click', function () {
+
     // check if winner
     if(gamePlaying) {
         // randomized number for dice (1-6)
         var dice = Math.floor(Math.random() * 6) + 1;
+        console.log(dice);
 
         // display dice
         var diceDOM =document.querySelector('.dice');
         diceDOM.style.display = 'block';
         diceDOM.src = 'dice-' + dice + '.png';
 
-        // update round score IF dice is NOT a 1
-        if(dice !== 1) {
+        console.log('Previous dice: '+previousDice[0]);
+
+        // if current dice roll and previous roll is both a 6 or 3, next player
+        if( (dice === 6 && previousDice[0] === 6) || (dice === 3 && previousDice[0] === 3) ) {
+            previousDice = [];
+            console.log(previousDice);
+            nextPlayer();
+        } else if(dice !== 1) {
+            // if normal
             roundScore += dice;
+            previousDice.pop();
+            previousDice.push(dice);
             document.querySelector('#current-' + activePlayer).textContent = roundScore;
         } else {
+            // if rolled a 1, new player
+            previousDice.pop();
             nextPlayer();
         }
     }
@@ -85,6 +98,7 @@ function init() {
     roundScore = 0;
     activePlayer = 0;
     gamePlaying = true;
+    previousDice = [];
 
     // remove dice on load
     document.querySelector('.dice').style.display = 'none';
