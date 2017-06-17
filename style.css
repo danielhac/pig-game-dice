@@ -142,13 +142,28 @@ i {
 .btn-roll { top: 403px;}
 .btn-hold { top: 467px;}
 
-.dice {
+.dice-section {
     position: absolute;
     left: 50%;
     top: 178px;
+    height: 150px;
     transform: translateX(-50%);
-    height: 100px;
-    box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.10);
+}
+
+.dice {
+    box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.40);
+    height: 150px;
+}
+
+#winning-score {
+    height: 30px;
+    width: 202px;
+    font-size: 20px;
+    text-align: center;
+}
+
+button.btn-score {
+    padding-top: 10px;
 }
 
 .winner { background-color: #f7f7f7; }

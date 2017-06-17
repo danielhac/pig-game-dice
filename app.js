@@ -9,7 +9,7 @@ GAME RULES:
 
 */
 
-var scores, roundScore, activePlayer, gamePlaying, previousDice;
+var scores, roundScore, activePlayer, gamePlaying, previousDice, winningScore;
 
 init();
 
@@ -46,8 +46,6 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
             nextPlayer();
         }
     }
-
-
 });
 
 // when clicking on hold button
@@ -61,7 +59,7 @@ document.querySelector('.btn-hold').addEventListener('click', function () {
         document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 
         // check if current player won and change player name, else next player
-        if(scores[activePlayer] >= 50) {
+        if(scores[activePlayer] >= winningScore) {
             document.querySelector('#name-'+activePlayer).textContent = 'Pakchubs forever!';
             document.querySelector('.dice').style.display = 'none';
             document.querySelector('.player-'+activePlayer+'-panel').classList.add('winner');
@@ -71,7 +69,6 @@ document.querySelector('.btn-hold').addEventListener('click', function () {
             nextPlayer();
         }
     }
-
 });
 
 document.querySelector('.btn-new').addEventListener('click', init);
@@ -92,12 +89,24 @@ function nextPlayer() {
     document.querySelector('.dice').style.display = 'none';
 }
 
+document.querySelector('.btn-score').addEventListener('click', function () {
+    getWinningScore();
+    document.querySelector('.form-winner').style.display = 'none';
+});
+
+// define winning score from user
+function getWinningScore() {
+    winningScore = document.getElementById("winning-score").value;
+    gamePlaying = true;
+    return winningScore;
+}
+
 function init() {
     // reset all variables
     scores = [0,0];
     roundScore = 0;
     activePlayer = 0;
-    gamePlaying = true;
+    gamePlaying = false;
     previousDice = [];
 
     // remove dice on load
@@ -123,8 +132,8 @@ function init() {
 
     // add active class to restart or begin a game
     document.querySelector('.player-0-panel').classList.add('active');
+
+    // show the winning score for user to enter
+    document.querySelector('.form-winner').style.display = 'block';
+    document.getElementById("winning-score").textContent = 'Enter winning score';
 }
-
-
-
-// var x = document.querySelector('#score-0').textContent;
