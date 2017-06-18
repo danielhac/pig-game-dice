@@ -9,9 +9,24 @@ GAME RULES:
 
 */
 
-var scores, roundScore, activePlayer, gamePlaying, previousDice, winningScore;
+var scores, roundScore, activePlayer, gamePlaying, previousDice, winningScore, player0, player1;
 
 init();
+
+document.addEventListener('DOMContentLoaded',function() {
+    document.querySelector('input[id="name-change0"]').onchange=changeEventHandler;
+    document.querySelector('input[id="name-change1"]').onchange=changeEventHandler1;
+},false);
+
+function changeEventHandler(event) {
+    player0 = event.target.value;
+    console.log(player0);
+}
+
+function changeEventHandler1(event) {
+    player1 = event.target.value;
+    console.log(player1);
+}
 
 // when clicking on the roll dice button
 document.querySelector('.btn-roll').addEventListener('click', function () {
@@ -60,7 +75,12 @@ document.querySelector('.btn-hold').addEventListener('click', function () {
 
         // check if current player won and change player name, else next player
         if(scores[activePlayer] >= winningScore) {
-            document.querySelector('#name-'+activePlayer).textContent = 'Pakchubs forever!';
+            if(activePlayer === 0) {
+                playerWinner = player0 + ' wins!';
+            } else {
+                playerWinner = player1 + ' wins!';
+            }
+            document.querySelector('#name-change'+activePlayer).value = playerWinner;
             document.querySelector('.dice').style.display = 'none';
             document.querySelector('.player-'+activePlayer+'-panel').classList.add('winner');
             document.querySelector('.player-'+activePlayer+'-panel').classList.remove('active');
@@ -101,6 +121,8 @@ function getWinningScore() {
     return winningScore;
 }
 
+
+
 function init() {
     // reset all variables
     scores = [0,0];
@@ -119,8 +141,20 @@ function init() {
     document.getElementById('current-1').textContent = '0';
 
     // reset names
-    document.getElementById('name-0').textContent = 'Pak paks';
-    document.getElementById('name-1').textContent = 'Bae Bae';
+    if(player0) {
+        document.querySelector('input[id="name-change0"]').value = player0;
+    } else {
+        player0 = document.getElementById('name-change0').placeholder;
+        document.querySelector('input[id="name-change0"]').value = player0;
+    }
+    if(player1) {
+        // document.getElementById('name-0').textContent = 'Pak paks';
+        // document.getElementById('name-1').textContent = player1;
+        document.querySelector('input[id="name-change1"]').value = player1;
+    } else {
+        player1 = document.getElementById('name-change1').placeholder;
+        document.querySelector('input[id="name-change1"]').value = player1;
+    }
 
     // remove winner class
     document.querySelector('.player-0-panel').classList.remove('winner');

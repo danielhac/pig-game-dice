@@ -6,7 +6,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
 }
 
 .clearfix::after {
@@ -46,6 +45,10 @@ body {
     padding: 100px;
 }
 
+input:focus {
+    outline-color: #cc4d4f;
+}
+
 
 
 /**********************************************
@@ -59,8 +62,21 @@ body {
     letter-spacing: 2px;
     font-weight: 100;
     margin-top: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 27px;
     position: relative;
+}
+
+input#name-change0, input#name-change1 {
+    height: 59px;
+    width: 100%;
+    font-size: 39px;
+    text-align: center;
+    border: 0;
+    font-family: Lato;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #5b5757;
+    background: none;
 }
 
 .player-score {
