@@ -170,16 +170,35 @@ i {
     box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.40);
     height: 150px;
 }
+.dice2 {
+    box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.40);
+    height: 150px;
+}
 
 #winning-score {
     height: 30px;
     width: 202px;
     font-size: 20px;
     text-align: center;
+    position: relative;
+    left: 0%;
 }
+.none-imp {
+    display: none!important;
+}
+
 
 button.btn-score {
     padding-top: 10px;
+    position: relative;
+}
+
+.grid-imp {
+    display: grid!important;
+}
+
+.form-winner {
+
 }
 
 .winner { background-color: #f7f7f7; }
